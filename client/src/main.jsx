@@ -9,12 +9,22 @@ import {
 
 import App from './App.jsx';
 import "../src/index.css";
+import SearchPage from './pages/SearchPage.jsx';
+import RecipePage from './pages/RecipePage.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <>Sorry !!!!!!!!!!</>,
+  },
+  {
+    path: "/search/:searchKeyword",
+    element: <SearchPage />,
+  },
+  {
+    path: "/recipe/:recipeId",
+    element: <RecipePage />,
   },
 
 ]);

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 import toast from "react-hot-toast";
 
@@ -7,6 +8,9 @@ import toast from "react-hot-toast";
 function Header() {
     const [count, setCount] = useState(1);
     const [sideBarVisible, setSideBarVisible] = useState(false);
+    const [searchInput, setSearchInput] = useState("");
+
+    const navigate = useNavigate();
 
     const toastAaJao = () => {
         setCount((prev) => {
@@ -22,6 +26,17 @@ function Header() {
     const handleCrossClick = () => {
         setSideBarVisible(false);
     }
+
+    const handleSearchInputChange = (e) => {
+        setSearchInput(e.target.value);
+    }
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        navigate(`/search/${searchInput}`);
+    }
+
+
 
     return (
         <>
@@ -72,6 +87,8 @@ function Header() {
                                             className="bg-slate-100 outline-none mx-2"
                                             type="text"
                                             name="searchInput"
+                                            value={searchInput}
+                                            onChange={handleSearchInputChange}
                                             placeholder="Search for recipes"
                                         />
                                     </form>
@@ -106,8 +123,8 @@ function Header() {
                             {/* Logo and Links container Ends here  */}
 
                             {/* Button container for Tablet (Middle screen size devices) Starts here  */}
-                            <div className="button-container hidden md:flex gap-x-5">
-                                <form className="flex items-center bg-slate-100 p-2 rounded-lg text-slate-400 w-fit">
+                            <div className="button-container hidden md:flex gap-x-5" onSubmit={handleFormSubmit}>
+                                <form className="flex items-center bg-slate-100 p-2 rounded-lg text-slate-400 w-fit" onSubmit={handleFormSubmit}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width={17}
@@ -135,6 +152,8 @@ function Header() {
                                         className="bg-slate-100 outline-none mx-2"
                                         type="text"
                                         name="searchInput"
+                                        value={searchInput}
+                                        onChange={handleSearchInputChange}
                                         placeholder="Search for recipes..."
                                     />
                                 </form>
