@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from './components/Layout/Layout';
 import RecipeCard from './components/RecipeCard';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function App() {
-  const recipes = [
+  const [recipes, setRecipes] = useState([
     {
       id: "1",
       title: "One",
       description: "One desc",
+      ingredients: "Aloo,baigan",
       image: "https://picsum.photos/200",
       steps: ["Step 1", "Step 2"],
     },
@@ -15,6 +18,7 @@ function App() {
       id: "2",
       title: "Two",
       description: "Two desc",
+      ingredients: "Aloo,baigan",
       image: "https://picsum.photos/400",
       steps: ["Step 1", "Step 2"],
     },
@@ -22,6 +26,7 @@ function App() {
       id: "3",
       title: "Three",
       description: "Three desc",
+      ingredients: "Aloo,baigan",
       image: "https://picsum.photos/600",
       steps: ["Step 1", "Step 2"],
     },
@@ -29,11 +34,47 @@ function App() {
       id: "4",
       title: "Four",
       description: "Four desc",
+      ingredients: "Aloo,baigan",
       image: "https://picsum.photos/800",
       steps: ["Step 1", "Step 2"],
     },
-  ]
+  ]);
 
+  const serverURI = import.meta.env.VITE_SERVER_URI;
+
+  const getRecipes = async () => {
+    try {
+      const response = await axios.get(`${serverURI}/api/v1/recipe/get-recipes`);
+      if (response.data.success) {
+        toast.success("Try Something new on your table....");
+        if (response.data.recipes.length === 0) {
+          toast.error("Oops these recipes are not available....");
+          setRecipes((await axios.get(`${serverURI}/api/v1/recipe/get-recipe-by-keyword/yummy`)).data.recipes);
+        }
+
+        setRecipes(response.data.recipes);
+      }
+      else {
+        toast.error("Search error....")
+        toast.error(`${response.data.message}`);
+        setTimeout(() => {
+          navigate(`/`);
+        }, 2000);
+      }
+
+    } catch (error) {
+      console.error(error);
+      toast.error("Search error....")
+      toast.error(`${error.message}`);
+      setTimeout(() => {
+        navigate(`/`);
+      }, 2000);
+    }
+  };
+
+  useEffect(() => {
+    getRecipes();
+  }, []);
 
   return (
     <>

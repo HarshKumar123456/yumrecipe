@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 
 import toast from "react-hot-toast";
+import { useAuth } from "../../context/auth";
 
 
 function Header() {
-    const [count, setCount] = useState(1);
     const [sideBarVisible, setSideBarVisible] = useState(false);
     const [searchInput, setSearchInput] = useState("");
 
+    const [auth, setAuth] = useAuth();
+
     const navigate = useNavigate();
 
-    const toastAaJao = () => {
-        setCount((prev) => {
-            return ++prev;
-        })
-        toast.success(`Here is your toast no. :  ${count}`);
+    const handleButtonClick = () => {
+        if (auth.user) {
+            navigate("/my-recipes");
+        } else {
+            navigate("/sign-in");
+        }
     };
 
     const handleHamburgerClick = () => {
@@ -28,6 +31,8 @@ function Header() {
     }
 
     const handleSearchInputChange = (e) => {
+        console.log("Hello search input");
+        console.log(searchInput);
         setSearchInput(e.target.value);
     }
 
@@ -36,7 +41,9 @@ function Header() {
         navigate(`/search/${searchInput}`);
     }
 
-
+    useEffect(() => {
+        console.log("Auth state in Header:", auth.user);
+    }, [auth]);
 
     return (
         <>
@@ -49,17 +56,17 @@ function Header() {
                             {/* Logo and Links container Starts here  */}
                             <div className="logo-container p-4 flex flex-col gap-x-4">
                                 <div className="flex justify-between items-center">
-                                    <h2 className="text-4xl text-gray-400 tracking-tighter">
+                                    <Link to={"/"} className="cursor-pointer text-4xl text-gray-400 tracking-tighter">
                                         Yum Recipe
-                                    </h2>
-                                    <h2 className="text-2xl" onClick={handleCrossClick}>
+                                    </Link>
+                                    <h2 className="text-2xl cursor-pointer" onClick={handleCrossClick}>
                                         X
                                     </h2>
                                 </div>
 
                                 {/* Button container for Mobile (Small screen size devices) Starts here  */}
-                                <div className="button-container  flex mt-4 pt-4 gap-x-4 justify-end">
-                                    <form className="flex items-center bg-slate-100 p-2 rounded-lg text-slate-400 w-full">
+                                <div className="button-container flex flex-wrap mt-4 pt-4 gap-x-4 gap-y-4 justify-end">
+                                    <form className="flex items-center bg-slate-100 p-2 rounded-lg text-slate-400 w-full" onSubmit={handleFormSubmit}>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width={17}
@@ -89,15 +96,27 @@ function Header() {
                                             name="searchInput"
                                             value={searchInput}
                                             onChange={handleSearchInputChange}
-                                            placeholder="Search for recipes"
+                                            placeholder="Search for recipes mobile"
                                         />
                                     </form>
-                                    <button onClick={toastAaJao} className="px-4 py-2 rounded-md bg-violet-500 text-white font-bold">
-                                        Login
+
+                                    <button onClick={handleButtonClick} className="px-4 py-2 rounded-md bg-red-500 text-white font-bold">
+                                        {auth.user ?
+                                            (
+                                                <>
+                                                    {`${auth.user.name}`}
+                                                </>
+                                            ) :
+                                            (
+                                                <>
+                                                    Login
+                                                </>
+                                            )
+                                        }
                                     </button>
-                                    <button onClick={toastAaJao} className="px-4 py-2 rounded-md bg-green-500 text-white font-bold">
+                                    <Link to={"/recipe/1/create"} className="px-4 py-2 rounded-md bg-green-500 text-white font-bold">
                                         Upload
-                                    </button>
+                                    </Link>
                                 </div>
                                 {/* Button container for Mobile (Small screen size devices) Ends here  */}
 
@@ -115,9 +134,9 @@ function Header() {
                         <nav className="flex justify-between items-center p-4 border-b-2">
                             {/* Logo and Links container Starts here  */}
                             <div className="logo-container flex items-center gap-x-4">
-                                <h2 className="text-4xl text-gray-400 tracking-tighter">
+                                <Link to={"/"} className="cursor-pointer text-4xl text-gray-400 tracking-tighter">
                                     Yum Recipe
-                                </h2>
+                                </Link>
 
                             </div>
                             {/* Logo and Links container Ends here  */}
@@ -159,17 +178,28 @@ function Header() {
                                 </form>
 
 
-                                <button onClick={toastAaJao} className="px-4 py-2 rounded-md bg-violet-500 text-white font-bold">
-                                    Login
+                                <button onClick={handleButtonClick} className="px-4 py-2 rounded-md bg-violet-500 text-white font-bold">
+                                    {auth.user ?
+                                        (
+                                            <>
+                                                {`${auth.user.name}`}
+                                            </>
+                                        ) :
+                                        (
+                                            <>
+                                                Login
+                                            </>
+                                        )
+                                    }
                                 </button>
-                                <button onClick={toastAaJao} className="px-4 py-2 rounded-md bg-green-500 text-white font-bold">
+                                <Link to={"/recipe/1/create"} className="px-4 py-2 rounded-md bg-green-500 text-white font-bold">
                                     Upload
-                                </button>
+                                </Link>
                             </div>
                             {/* Button container for Tablet (Middle screen size devices) Ends here  */}
 
                             {/* Hamburger Menu for Mobiles (Smaller screen size devices) Starts here */}
-                            <div className="hamburger-container md:hidden" onClick={handleHamburgerClick}>
+                            <div className="hamburger-container cursor-pointer md:hidden" onClick={handleHamburgerClick}>
                                 <svg
                                     className="block h-4 w-4 fill-current"
                                     viewBox="0 0 20 20"
