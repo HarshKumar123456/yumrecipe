@@ -95,7 +95,7 @@ const MyRecipesPage = () => {
                     </h2>
                     Let the world feel the magic of your cooking...
                 </div>
-                <Link to={"/recipe/1/create"} className="px-4 py-2 rounded-md bg-green-500 text-white font-bold">
+                <Link to={"/yumrecipe/recipe/1/create"} className="px-4 py-2 rounded-md bg-green-500 text-white font-bold">
                     Upload
                 </Link>
 

@@ -21,7 +21,7 @@ const RecipeCard = ({ id, title, description, image, actions }) => {
             <div className="mt-4 flex justify-between">
                 <div>
                     <h3 className="text-lg text-gray-700 font-bold">
-                        <Link to={`/recipe/${recipe.id}${actions ? "/" + actions : ""}`}>
+                        <Link to={`/yumrecipe/recipe/${recipe.id}${actions ? "/" + actions : ""}`}>
                             <span aria-hidden="true" className="absolute inset-0" />
                             {recipe.title.slice(0,24)}{`${recipe.title.length > 24 ? "...." : ""}`}
                         </Link>

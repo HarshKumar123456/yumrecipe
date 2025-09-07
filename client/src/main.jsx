@@ -19,32 +19,32 @@ import CRUDRecipePage from './pages/CRUDRecipePage.jsx';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/yumrecipe/",
     element: <App />,
     errorElement: <>Sorry !!!!!!!!!! Page Not Found</>,
   },
   {
-    path: "/search/:searchKeyword",
+    path: "/yumrecipe/search/:searchKeyword",
     element: <SearchPage />,
   },
   {
-    path: "/recipe/:recipeId",
+    path: "/yumrecipe/recipe/:recipeId",
     element: <RecipePage />,
   },
   {
-    path: "/recipe/:recipeId/:actions",
+    path: "/yumrecipe/recipe/:recipeId/:actions",
     element: <CRUDRecipePage />,
   },
   {
-    path: "/sign-up",
+    path: "/yumrecipe/sign-up",
     element: <SignUpPage />,
   },
   {
-    path: "/sign-in",
+    path: "/yumrecipe/sign-in",
     element: <SignInPage />,
   },
   {
-    path: "/my-recipes",
+    path: "/yumrecipe/my-recipes",
     element: <MyRecipesPage />,
   },
 

@@ -16,9 +16,9 @@ function Header() {
 
     const handleButtonClick = () => {
         if (auth.user) {
-            navigate("/my-recipes");
+            navigate("/yumrecipe/my-recipes");
         } else {
-            navigate("/sign-in");
+            navigate("/yumrecipe/sign-in");
         }
     };
 
@@ -38,7 +38,7 @@ function Header() {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        navigate(`/search/${searchInput}`);
+        navigate(`/yumrecipe/search/${searchInput}`);
     }
 
     useEffect(() => {
@@ -56,7 +56,7 @@ function Header() {
                             {/* Logo and Links container Starts here  */}
                             <div className="logo-container p-4 flex flex-col gap-x-4">
                                 <div className="flex justify-between items-center">
-                                    <Link to={"/"} className="cursor-pointer text-4xl text-gray-400 tracking-tighter">
+                                    <Link to={"/yumrecipe/"} className="cursor-pointer text-4xl text-gray-400 tracking-tighter">
                                         Yum Recipe
                                     </Link>
                                     <h2 className="text-2xl cursor-pointer" onClick={handleCrossClick}>
@@ -114,7 +114,7 @@ function Header() {
                                             )
                                         }
                                     </button>
-                                    <Link to={"/recipe/1/create"} className="px-4 py-2 rounded-md bg-green-500 text-white font-bold">
+                                    <Link to={"/yumrecipe/recipe/1/create"} className="px-4 py-2 rounded-md bg-green-500 text-white font-bold">
                                         Upload
                                     </Link>
                                 </div>
@@ -134,7 +134,7 @@ function Header() {
                         <nav className="flex justify-between items-center p-4 border-b-2">
                             {/* Logo and Links container Starts here  */}
                             <div className="logo-container flex items-center gap-x-4">
-                                <Link to={"/"} className="cursor-pointer text-4xl text-gray-400 tracking-tighter">
+                                <Link to={"/yumrecipe/"} className="cursor-pointer text-4xl text-gray-400 tracking-tighter">
                                     Yum Recipe
                                 </Link>
 
@@ -192,7 +192,7 @@ function Header() {
                                         )
                                     }
                                 </button>
-                                <Link to={"/recipe/1/create"} className="px-4 py-2 rounded-md bg-green-500 text-white font-bold">
+                                <Link to={"/yumrecipe/recipe/1/create"} className="px-4 py-2 rounded-md bg-green-500 text-white font-bold">
                                     Upload
                                 </Link>
                             </div>

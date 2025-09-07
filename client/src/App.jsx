@@ -58,7 +58,7 @@ function App() {
         toast.error("Search error....")
         toast.error(`${response.data.message}`);
         setTimeout(() => {
-          navigate(`/`);
+          navigate(`/yumrecipe/`);
         }, 2000);
       }
 
@@ -67,7 +67,7 @@ function App() {
       toast.error("Search error....")
       toast.error(`${error.message}`);
       setTimeout(() => {
-        navigate(`/`);
+        navigate(`/yumrecipe/`);
       }, 2000);
     }
   };

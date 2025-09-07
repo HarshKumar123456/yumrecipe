@@ -86,7 +86,7 @@ const SignUpPage = () => {
                             </p>
                             <p>
                                 You can <span className="text-[#4D47C3]">
-                                    <Link to={"/sign-in"}>
+                                    <Link to={"/yumrecipe/sign-in"}>
                                         Login Here !
                                     </Link>
                                 </span>
